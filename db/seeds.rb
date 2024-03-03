@@ -40,7 +40,7 @@ section2 = Section.create!(label: "Specialty Pizzas", description: "Unique and f
 section3 = Section.create!(label: "Beef Burgers", description: "Mouth-watering beef burgers", menu: menu2)
 section4 = Section.create!(label: "Chicken Burgers", description: "Tasty chicken burgers", menu: menu2)
 
-# Create Items
+# Create Items, and automatically SectionItems
 item1 = Item.create!(type: "Product", label: "Margherita Pizza", description: "Classic margherita pizza", price: 10.99, section: section1)
 item2 = Item.create!(type: "Product", label: "Pepperoni Pizza", description: "Savory pepperoni pizza", price: 12.99, section: section1)
 item3 = Item.create!(type: "Product", label: "Hawaiian Pizza", description: "Sweet and tangy Hawaiian pizza", price: 11.99, section: section2)
@@ -52,26 +52,48 @@ item6 = Item.create!(type: "Product", label: "Spicy Chicken Burger", description
 size_group = ModifierGroup.create!(label: 'Size of Pizza', selection_required_min: 1, selection_required_max: 1)
 toppings_group = ModifierGroup.create!(label: 'Toppings', selection_required_min: 0, selection_required_max: 5)
 
+burger_size_group = ModifierGroup.create!(label: 'Size of Burger', selection_required_min: 1, selection_required_max: 1)
+burger_toppings_group = ModifierGroup.create!(label: 'Burger Toppings', selection_required_min: 0, selection_required_max: 5)
+
 # Create ItemModifierGroup, Inject Modifier Group to Item
-[item1, item2, item3, item4, item5, item6].each do |item|
+[item1, item2, item3].each do |item|
   item.modifier_groups << size_group
   item.modifier_groups << toppings_group
 end
+[item4, item5, item6].each do |item|
+  item.modifier_groups << burger_size_group
+  item.modifier_groups << burger_toppings_group
+end
+
 
 # Create Modifer
 # Modifier Group : Size of Pizza
 comp1 = Item.create!(type: "Component", label: 'Small Pizza', price: 0)
 comp2 = Item.create!(type: "Component", label: 'Large Pizza', price: 4)
 
-modifier_small_size = Modifier.create!(modifier_group: size_group, item: comp1)
-modifier_large_size = Modifier.create!(modifier_group: size_group, item: comp2)
+Modifier.create!(modifier_group: size_group, item: comp1)
+Modifier.create!(modifier_group: size_group, item: comp2)
 
 # Modifier Group : Toppings
 comp3 = Item.create!(type: "Component", label: 'Extra Cheese', price: 1)
 comp4 = Item.create!(type: "Component", label: 'Mushrooms', price: 0.5)
 
-modifier_cheese = Modifier.create!(modifier_group: toppings_group, item: comp3)
-modifier_mushrooms = Modifier.create!(modifier_group: toppings_group, item: comp4)
+Modifier.create!(modifier_group: toppings_group, item: comp3)
+Modifier.create!(modifier_group: toppings_group, item: comp4)
+
+# Modifier Group : Size of Burger
+comp5 = Item.create!(type: "Component", label: 'Small Burger', price: 0)
+comp6 = Item.create!(type: "Component", label: 'Large Burger', price: 2)
+
+Modifier.create!(modifier_group: burger_size_group, item: comp5)
+Modifier.create!(modifier_group: burger_size_group, item: comp6)
+
+# Modifier Group : Size of Pizza
+comp7 = Item.create!(type: "Component", label: 'Lettuce', price: 0)
+comp8 = Item.create!(type: "Component", label: 'Extra Tomato', price: 4)
+
+Modifier.create!(modifier_group: burger_toppings_group, item: comp7)
+Modifier.create!(modifier_group: burger_toppings_group, item: comp8)
 
 # Output success message
 puts "Seed data has been created successfully!"
