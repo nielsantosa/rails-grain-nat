@@ -1,0 +1,19 @@
+services:
+  - name: web
+    env: rails
+    buildCommand: bundle install --deployment --without development:test
+    startCommand: bundle exec rails server -p $PORT
+
+  - name: database
+    type: postgres
+
+env:
+  RAILS_ENV: production
+  SECRET_KEY_BASE:
+    from: env
+    required: true
+
+routes:
+  - path: /
+    destination: web
+    type: web
