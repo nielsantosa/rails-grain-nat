@@ -35,65 +35,82 @@ menu1 = Menu.create!(label: "Pizza Menu", state: "active", start_date: Date.toda
 menu2 = Menu.create!(label: "Burger Menu", state: "active", start_date: Date.today, end_date: nil)
 
 # Create Sections
-section1 = Section.create!(label: "Classic Pizzas", description: "Delicious classic pizzas", menu: menu1)
-section2 = Section.create!(label: "Specialty Pizzas", description: "Unique and flavorful pizzas", menu: menu1)
-section3 = Section.create!(label: "Beef Burgers", description: "Mouth-watering beef burgers", menu: menu2)
-section4 = Section.create!(label: "Chicken Burgers", description: "Tasty chicken burgers", menu: menu2)
+section1 = Section.create!(label: "Classic Pizzas", description: "Delicious classic pizzas")
+section2 = Section.create!(label: "Specialty Pizzas", description: "Unique and flavorful pizzas")
+section3 = Section.create!(label: "Beef Burgers", description: "Mouth-watering beef burgers")
+section4 = Section.create!(label: "Chicken Burgers", description: "Tasty chicken burgers")
 
-# Create Items, and automatically SectionItems
-item1 = Item.create!(type: "Product", label: "Margherita Pizza", description: "Classic margherita pizza", price: 10.99, section: section1)
-item2 = Item.create!(type: "Product", label: "Pepperoni Pizza", description: "Savory pepperoni pizza", price: 12.99, section: section1)
-item3 = Item.create!(type: "Product", label: "Hawaiian Pizza", description: "Sweet and tangy Hawaiian pizza", price: 11.99, section: section2)
-item4 = Item.create!(type: "Product", label: "Classic Burger", description: "Juicy classic burger", price: 8.99, section: section3)
-item5 = Item.create!(type: "Product", label: "Cheeseburger", description: "Cheesy and delicious cheeseburger", price: 9.99, section: section3)
-item6 = Item.create!(type: "Product", label: "Spicy Chicken Burger", description: "Spicy chicken burger with a kick", price: 10.99, section: section4)
+# Connect Menu and Section
+MenuSection.create!(menu: menu1, section: section1, display_order: 1)
+MenuSection.create!(menu: menu1, section: section2, display_order: 2)
+MenuSection.create!(menu: menu2, section: section3, display_order: 1)
+MenuSection.create!(menu: menu2, section: section4, display_order: 2)
+
+# Create Items
+item1 = Item.create!(type: "Product", label: "Margherita Pizza", description: "Classic margherita pizza", price: 10.99)
+item2 = Item.create!(type: "Product", label: "Pepperoni Pizza", description: "Savory pepperoni pizza", price: 12.99)
+item3 = Item.create!(type: "Product", label: "Hawaiian Pizza", description: "Sweet and tangy Hawaiian pizza", price: 11.99)
+item4 = Item.create!(type: "Product", label: "Classic Burger", description: "Juicy classic burger", price: 8.99)
+item5 = Item.create!(type: "Product", label: "Cheeseburger", description: "Cheesy and delicious cheeseburger", price: 9.99)
+item6 = Item.create!(type: "Product", label: "Spicy Chicken Burger", description: "Spicy chicken burger with a kick", price: 10.99)
+
+# Create SectionItem
+SectionItem.create!(section: section1, item: item1, display_order: 1)
+SectionItem.create!(section: section1, item: item2, display_order: 2)
+SectionItem.create!(section: section2, item: item3, display_order: 1)
+SectionItem.create!(section: section3, item: item4, display_order: 1)
+SectionItem.create!(section: section3, item: item5, display_order: 2)
+SectionItem.create!(section: section4, item: item6, display_order: 1)
 
 # Create Modifier Group
-size_group = ModifierGroup.create!(label: 'Size of Pizza', selection_required_min: 1, selection_required_max: 1)
-toppings_group = ModifierGroup.create!(label: 'Toppings', selection_required_min: 0, selection_required_max: 5)
+mg1 = ModifierGroup.create!(label: 'Size of Pizza', selection_required_min: 1, selection_required_max: 1)
+mg2 = ModifierGroup.create!(label: 'Toppings', selection_required_min: 0, selection_required_max: 5)
 
-burger_size_group = ModifierGroup.create!(label: 'Size of Burger', selection_required_min: 1, selection_required_max: 1)
-burger_toppings_group = ModifierGroup.create!(label: 'Burger Toppings', selection_required_min: 0, selection_required_max: 5)
+mg3 = ModifierGroup.create!(label: 'Size of Burger', selection_required_min: 1, selection_required_max: 1)
+mg4 = ModifierGroup.create!(label: 'Burger Toppings', selection_required_min: 0, selection_required_max: 5)
 
 # Create ItemModifierGroup, Inject Modifier Group to Item
-[item1, item2, item3].each do |item|
-  item.modifier_groups << size_group
-  item.modifier_groups << toppings_group
-end
-[item4, item5, item6].each do |item|
-  item.modifier_groups << burger_size_group
-  item.modifier_groups << burger_toppings_group
-end
-
+ItemModifierGroup.create!(item: item1, modifier_group: mg1)
+ItemModifierGroup.create!(item: item2, modifier_group: mg1)
+ItemModifierGroup.create!(item: item3, modifier_group: mg1)
+ItemModifierGroup.create!(item: item1, modifier_group: mg2)
+ItemModifierGroup.create!(item: item2, modifier_group: mg2)
+ItemModifierGroup.create!(item: item3, modifier_group: mg2)
+ItemModifierGroup.create!(item: item4, modifier_group: mg3)
+ItemModifierGroup.create!(item: item5, modifier_group: mg3)
+ItemModifierGroup.create!(item: item6, modifier_group: mg3)
+ItemModifierGroup.create!(item: item4, modifier_group: mg4)
+ItemModifierGroup.create!(item: item5, modifier_group: mg4)
+ItemModifierGroup.create!(item: item6, modifier_group: mg4)
 
 # Create Modifer
 # Modifier Group : Size of Pizza
 comp1 = Item.create!(type: "Component", label: 'Small Pizza', price: 0)
 comp2 = Item.create!(type: "Component", label: 'Large Pizza', price: 4)
 
-Modifier.create!(modifier_group: size_group, item: comp1)
-Modifier.create!(modifier_group: size_group, item: comp2)
+Modifier.create!(modifier_group: mg1, item: comp1, display_order: 1, default_quantity: 1)
+Modifier.create!(modifier_group: mg1, item: comp2, display_order: 2, default_quantity: 1)
 
 # Modifier Group : Toppings
 comp3 = Item.create!(type: "Component", label: 'Extra Cheese', price: 1)
 comp4 = Item.create!(type: "Component", label: 'Mushrooms', price: 0.5)
 
-Modifier.create!(modifier_group: toppings_group, item: comp3)
-Modifier.create!(modifier_group: toppings_group, item: comp4)
+Modifier.create!(modifier_group: mg2, item: comp3, display_order: 1, default_quantity: 1)
+Modifier.create!(modifier_group: mg2, item: comp4, display_order: 2, default_quantity: 1)
 
 # Modifier Group : Size of Burger
 comp5 = Item.create!(type: "Component", label: 'Small Burger', price: 0)
 comp6 = Item.create!(type: "Component", label: 'Large Burger', price: 2)
 
-Modifier.create!(modifier_group: burger_size_group, item: comp5)
-Modifier.create!(modifier_group: burger_size_group, item: comp6)
+Modifier.create!(modifier_group: mg3, item: comp5, display_order: 1, default_quantity: 1)
+Modifier.create!(modifier_group: mg3, item: comp6, display_order: 2, default_quantity: 1)
 
 # Modifier Group : Size of Pizza
 comp7 = Item.create!(type: "Component", label: 'Lettuce', price: 0)
 comp8 = Item.create!(type: "Component", label: 'Extra Tomato', price: 4)
 
-Modifier.create!(modifier_group: burger_toppings_group, item: comp7)
-Modifier.create!(modifier_group: burger_toppings_group, item: comp8)
+Modifier.create!(modifier_group: mg4, item: comp7, display_order: 1, default_quantity: 1)
+Modifier.create!(modifier_group: mg4, item: comp8, display_order: 2, default_quantity: 1)
 
 # Output success message
 puts "Seed data has been created successfully!"
