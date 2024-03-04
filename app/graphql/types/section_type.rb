@@ -15,11 +15,10 @@ module Types
   class SectionCreateInputType < Types::BaseInputObject
     argument :label, String, required: true
     argument :description, String
-    argument :menu_id, ID, required: true
   end
 
   class SectionUpdateInputType < Types::BaseInputObject
     argument :label, String
-    argument :menu_id, ID
+    argument :description, String
   end
 end
