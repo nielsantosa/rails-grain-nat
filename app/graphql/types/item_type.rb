@@ -19,7 +19,6 @@ module Types
     argument :label, String, required: true
     argument :description, String
     argument :price, Float, required: true
-    argument :section_id, ID, required: true
   end
 
   class ItemUpdateInputType < Types::BaseInputObject
@@ -27,6 +26,5 @@ module Types
     argument :label, String, required: false
     argument :description, String
     argument :price, Float, required: false
-    argument :section_id, ID, required: false
   end
 end

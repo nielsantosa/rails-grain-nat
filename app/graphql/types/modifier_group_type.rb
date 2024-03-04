@@ -17,13 +17,11 @@ module Types
     argument :label, String, required: true
     argument :selection_required_min, Integer
     argument :selection_required_max, Integer
-    argument :item_id, ID, required: true
   end
 
   class ModifierGroupUpdateInputType < Types::BaseInputObject
     argument :label, String
     argument :selection_required_min, Integer
     argument :selection_required_max, Integer
-    argument :item_id, ID
   end
 end

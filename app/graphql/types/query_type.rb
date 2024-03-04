@@ -43,6 +43,21 @@ module Types
       Menu.find_by(id: id)
     end
 
+    # MenuSections
+    field :getMenuSections, [Types::MenuSectionType], null: false, description: "Return a list of MenuSections" do
+      argument :page_num, Integer, required: false, description: "Number of items"
+      argument :menu_id, Integer, required: false, description: "Menu ID"
+      argument :section_id, Integer, required: false, description: "Section ID"
+    end
+    def getMenuSections(page_num: 10, menu_id: nil, section_id: nil)
+      conditions = {}
+
+      conditions[:menu_id] = menu_id if menu_id.present?
+      conditions[:section_id] = section_id if section_id.present?
+
+      MenuSection.where(conditions).limit(page_num)
+    end
+
     # Sections
     field :getSections, [Types::SectionType], null: false, description: "Return a list of Sections" do
       argument :page_num, Integer, required: false, description: "Number of items"
@@ -58,6 +73,21 @@ module Types
       Section.find_by(id: id)
     end
 
+    # SectionItems
+    field :getSectionItems, [Types::SectionItemType], null: false, description: "Return a list of SectionItems" do
+      argument :page_num, Integer, required: false, description: "Number of items"
+      argument :item_id, Integer, required: false, description: "Item ID"
+      argument :section_id, Integer, required: false, description: "Section ID"
+    end
+    def getSectionItems(page_num: 10, item_id: nil, section_id: nil)
+      conditions = {}
+
+      conditions[:item_id] = item_id if item_id.present?
+      conditions[:section_id] = section_id if section_id.present?
+
+      SectionItem.where(conditions).limit(page_num)
+    end
+
     # Items
     field :getItems, [Types::ItemType], null: false, description: "Return a list of Items" do
       argument :page_num, Integer, required: false, description: "Number of items"
@@ -71,6 +101,21 @@ module Types
     end
     def getItemByID(id:)
       Item.find_by(id: id)
+    end
+
+    # ItemModifierGroup
+    field :getItemModifierGroups, [Types::ItemModifierGroupType], null: false, description: "Return a list of ItemModifierGroups" do
+      argument :page_num, Integer, required: false, description: "Number of items"
+      argument :item_id, Integer, required: false, description: "Item ID"
+      argument :modifier_group_id, Integer, required: false, description: "ModifierGroup ID"
+    end
+    def getItemModifierGroups(page_num: 10, item_id: nil, modifier_group_id: nil)
+      conditions = {}
+
+      conditions[:item_id] = item_id if item_id.present?
+      conditions[:modifier_group_id] = modifier_group_id if modifier_group_id.present?
+
+      ItemModifierGroup.where(conditions).limit(page_num)
     end
 
     # ModifierGroups
