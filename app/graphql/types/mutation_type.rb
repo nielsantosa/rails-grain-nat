@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_relative 'mutation/menu_mutation_type'
-require_relative 'mutation/menu_section_mutation_type'
-require_relative 'mutation/section_mutation_type'
-require_relative 'mutation/section_item_mutation_type'
-require_relative 'mutation/item_mutation_type'
-#require_relative 'mutation/img_mutation_type'
-require_relative 'mutation/modifier_group_mutation_type'
-require_relative 'mutation/modifier_mutation_type'
+require_relative 'menu_mutation_type'
+require_relative 'menu_section_mutation_type'
+require_relative 'section_mutation_type'
+require_relative 'section_item_mutation_type'
+require_relative 'item_mutation_type'
+require_relative 'img_mutation_type'
+require_relative 'modifier_group_mutation_type'
+require_relative 'modifier_mutation_type'
 
 module Types
   class MutationType < Types::BaseObject
