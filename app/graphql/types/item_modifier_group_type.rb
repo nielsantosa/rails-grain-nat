@@ -8,7 +8,7 @@ module Types
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
-    field :item, Types::SectionType, null: true
+    field :item, Types::ItemType, null: true
     field :modifier_group, Types::ModifierGroupType, null: true
   end
 
