@@ -1,19 +1,23 @@
+databases:
+  - name: rails-grain-nat-pg
+    databaseName: rails_grain_nat_prod
+    user: rails_grain_nat
+    plan: free
+
 services:
-  - name: web
-    env: rails
-    buildCommand: bundle install --deployment --without development:test
-    startCommand: bundle exec rails server -p $PORT
-
-  - name: database
-    type: postgres
-
-env:
-  RAILS_ENV: production
-  SECRET_KEY_BASE:
-    from: env
-    required: true
-
-routes:
-  - path: /
-    destination: web
-    type: web
+  - type: web
+    name: rails-grain-nat
+    runtime: ruby
+    plan: free
+    buildCommand: "./deploy/render-build.sh"
+    # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
+    startCommand: "bundle exec rails server"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: rails-grain-nat-pg
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: 2 # sensible default
