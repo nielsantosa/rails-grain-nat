@@ -11,8 +11,9 @@ RSpec.describe Item, type: :model do
       )
       item.save
 
-      expect(Item.count).to eq(1)
       expect(item.created_at).to be_present
+
+      item.destroy
     end
   end
 
@@ -25,7 +26,7 @@ RSpec.describe Item, type: :model do
       )
       item.save
 
-      expect(Item.count).to eq(0)
+      expect(item.created_at).not_to be_present
     end
   end
 
@@ -38,7 +39,8 @@ RSpec.describe Item, type: :model do
       )
       item.save
 
-      expect(Item.count).to eq(0)
+      expect(item.created_at).not_to be_present
+      item.destroy
     end
   end
 
@@ -52,7 +54,8 @@ RSpec.describe Item, type: :model do
       )
       item.save
 
-      expect(Item.count).to eq(0)
+      expect(item.created_at).not_to be_present
+      item.destroy
     end
   end
 end

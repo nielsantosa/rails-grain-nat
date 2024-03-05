@@ -5,7 +5,7 @@ class Menu < ApplicationRecord
   has_many :sections, through: :menu_sections
 
   validates :label, presence: true
-  validates :state, inclusion: { in: [MenuStateEnums::ACTIVE, MenuStateEnums::DELETED] }
+  validates :state, inclusion: { in: [Enums::MenuStateEnums::ACTIVE, Enums::MenuStateEnums::DELETED] }
   # validate start date and end date
   validate :start_date_and_end_time_is_a_date
   validate :validate_start_date_before_end_date

@@ -11,14 +11,4 @@ module Types
     field :item, Types::ItemType, null: true
     field :modifier_group, Types::ModifierGroupType, null: true
   end
-
-  class ItemModifierGroupCreateInputType < Types::BaseInputObject
-    argument :item_id, String, required: true
-    argument :modifier_group_id, String, required: true
-  end
-
-  class ItemModifierGroupUpdateInputType < Types::BaseInputObject
-    argument :item_id, String
-    argument :modifier_group_id
-  end
 end

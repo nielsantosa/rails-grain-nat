@@ -11,14 +11,4 @@ module Types
     field :items, [Types::ItemType], null: true
     field :menu, Types::MenuType, null: true
   end
-
-  class SectionCreateInputType < Types::BaseInputObject
-    argument :label, String, required: true
-    argument :description, String
-  end
-
-  class SectionUpdateInputType < Types::BaseInputObject
-    argument :label, String
-    argument :description, String
-  end
 end
