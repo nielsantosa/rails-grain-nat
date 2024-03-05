@@ -1,4 +1,4 @@
-module MenuStateEnums
-  ACTIVE = "active"
-  DELETED = "deleted"
+module Enums
+  class Enums
+  end
 end

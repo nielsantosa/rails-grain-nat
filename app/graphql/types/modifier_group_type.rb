@@ -12,16 +12,4 @@ module Types
     field :item, Types::ItemType, null: true
     field :modifiers, [Types::ModifierType], null: true
   end
-
-  class ModifierGroupCreateInputType < Types::BaseInputObject
-    argument :label, String, required: true
-    argument :selection_required_min, Integer
-    argument :selection_required_max, Integer
-  end
-
-  class ModifierGroupUpdateInputType < Types::BaseInputObject
-    argument :label, String
-    argument :selection_required_min, Integer
-    argument :selection_required_max, Integer
-  end
 end

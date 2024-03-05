@@ -12,16 +12,4 @@ module Types
     field :section, Types::SectionType, null: true
     field :menu, Types::MenuType, null: true
   end
-
-  class MenuSectionCreateInputType < Types::BaseInputObject
-    argument :menu_id, String, required: true
-    argument :section_id, String, required: true
-    argument :display_order, Integer
-  end
-
-  class MenuSectionUpdateInputType < Types::BaseInputObject
-    argument :menu_id, String
-    argument :section_id, String
-    argument :display_order, Integer
-  end
 end

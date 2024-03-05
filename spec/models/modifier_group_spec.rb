@@ -10,8 +10,8 @@ RSpec.describe ModifierGroup, type: :model do
       )
       mg.save
 
-      expect(ModifierGroup.count).to eq(1)
       expect(mg.created_at).to be_present
+      mg.destroy
     end
   end
 
@@ -23,7 +23,8 @@ RSpec.describe ModifierGroup, type: :model do
       )
       mg.save
 
-      expect(ModifierGroup.count).to eq(0)
+      expect(mg.created_at).not_to be_present
+      mg.destroy
     end
   end
 
@@ -36,7 +37,8 @@ RSpec.describe ModifierGroup, type: :model do
       )
       mg.save
 
-      expect(ModifierGroup.count).to eq(0)
+      expect(mg.created_at).not_to be_present
+      mg.destroy
     end
   end
 end
