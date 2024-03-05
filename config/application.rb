@@ -26,5 +26,8 @@ module RailsGrainNat
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    #
+    # Configuration for ActivRecord Schmea Format
+    #config.active_record.schema_format = :sql
   end
 end
