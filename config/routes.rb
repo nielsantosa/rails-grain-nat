@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  if Rails.env.development?
+  get 'render/index'
+  if Rails.env.development? or Rails.env.production?
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
   post "/graphql", to: "graphql#execute"
@@ -11,4 +12,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  root 'render#index'
 end
